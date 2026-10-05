@@ -10,6 +10,15 @@ from os import PathLike
 from typing import TYPE_CHECKING, Iterable, TextIO
 
 from .default_handlers import JSONHandler, TOMLHandler, YAMLHandler
+from .update import (
+    FrontmatterUpdateError,
+    MissingFrontmatterError,
+    UnclosedFrontmatterError,
+    UnsupportedEncodingError,
+    update_metadata_bytes,
+    update_metadata_file,
+    update_metadata_stream,
+)
 from .util import can_open, is_readable, is_writable, u
 
 
@@ -17,7 +26,20 @@ if TYPE_CHECKING:
     from .default_handlers import BaseHandler
 
 
-__all__ = ["parse", "load", "loads", "dump", "dumps"]
+__all__ = [
+    "parse",
+    "load",
+    "loads",
+    "dump",
+    "dumps",
+    "update_metadata_bytes",
+    "update_metadata_stream",
+    "update_metadata_file",
+    "FrontmatterUpdateError",
+    "UnsupportedEncodingError",
+    "MissingFrontmatterError",
+    "UnclosedFrontmatterError",
+]
 
 
 # global handlers

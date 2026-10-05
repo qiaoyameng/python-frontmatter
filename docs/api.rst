@@ -25,6 +25,28 @@ Writing
 .. autofunction:: frontmatter.dumps
 
 
+Updating metadata in place
+--------------------------
+
+These functions rewrite only the front matter region of a document,
+preserving the body byte-for-byte. They operate on bytes and binary
+streams rather than text.
+
+.. autofunction:: frontmatter.update_metadata_bytes
+
+.. autofunction:: frontmatter.update_metadata_stream
+
+.. autofunction:: frontmatter.update_metadata_file
+
+.. autoexception:: frontmatter.FrontmatterUpdateError
+
+.. autoexception:: frontmatter.UnsupportedEncodingError
+
+.. autoexception:: frontmatter.MissingFrontmatterError
+
+.. autoexception:: frontmatter.UnclosedFrontmatterError
+
+
 Post objects
 ------------
 
