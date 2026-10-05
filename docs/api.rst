@@ -25,6 +25,24 @@ Writing
 .. autofunction:: frontmatter.dumps
 
 
+Batch auditing
+--------------
+
+.. autofunction:: frontmatter.check_posts
+
+.. autoclass:: frontmatter.CheckReport
+    :members:
+
+.. autoclass:: frontmatter.Issue
+    :members:
+
+.. autoclass:: frontmatter.IdentityIndex
+    :members:
+
+.. autoclass:: frontmatter.audit.IdentityEntry
+    :members:
+
+
 Post objects
 ------------
 

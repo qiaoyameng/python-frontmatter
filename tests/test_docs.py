@@ -15,3 +15,7 @@ def test_handler_docs():
     doctest.testmod(
         frontmatter.default_handlers, extraglobs={"frontmatter": frontmatter}
     )
+
+
+def test_audit_docs():
+    doctest.testmod(frontmatter.audit, extraglobs={"frontmatter": frontmatter})
