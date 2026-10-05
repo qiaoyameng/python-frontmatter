@@ -242,6 +242,28 @@ class BaseHandler:
             end_delimiter=end_delimiter,
         ).strip()
 
+    def export_header(
+        self,
+        metadata: dict[str, object],
+        encoding: str = "utf-8",
+        **kwargs: object,
+    ) -> bytes:
+        """
+        Serialize only the front matter region, including its boundaries.
+        """
+        start_delimiter = kwargs.pop("start_delimiter", self.START_DELIMITER)
+        end_delimiter = kwargs.pop("end_delimiter", self.END_DELIMITER)
+        metadata_text = self.export(metadata, **kwargs)
+
+        if self.START_DELIMITER == "" and self.END_DELIMITER == "":
+            return (metadata_text + "\n").encode(encoding)
+
+        if start_delimiter is None or end_delimiter is None:
+            raise ValueError("Handler delimiters must be defined")
+
+        header = f"{start_delimiter}\n{metadata_text}\n{end_delimiter}\n"
+        return header.encode(encoding)
+
 
 class YAMLHandler(BaseHandler):
     """

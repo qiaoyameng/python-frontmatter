@@ -132,4 +132,30 @@ Well, hello there, world.
 
 ```
 
+When body bytes must be preserved exactly, update bytes or a binary stream.
+The body starts after the closing boundary and is copied byte-for-byte, so
+CRLF, LF, trailing blank lines, and non-UTF-8 bytes in the body are not
+normalized:
+
+```python
+>>> from io import BytesIO
+>>> source = open('tests/yaml/hello-world.txt', 'rb').read()
+>>> result = frontmatter.update_frontmatter(source, {'published': True})
+>>> destination = BytesIO()
+>>> frontmatter.update_frontmatter(BytesIO(source), {'published': True}, destination)
+
+```
+
+A file without front matter is left alone unless insertion is explicit:
+
+```python
+>>> source = b'Plain body\n'
+>>> result = frontmatter.update_frontmatter(source, {'published': True}, insert=True)
+
+```
+
+Unsupported encodings, unrecognized formats, and unclosed front matter raise an
+error. When a destination stream is supplied, it is not written until the new
+document has been built successfully.
+
 For more examples, see files in the `tests/` directory. Each sample file has a corresponding `.result.json` file showing the expected parsed output. See also the `examples/` directory, which covers more ways to customize input and output.

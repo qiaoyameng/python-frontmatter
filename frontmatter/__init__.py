@@ -9,6 +9,13 @@ import pathlib
 from os import PathLike
 from typing import TYPE_CHECKING, Iterable, TextIO
 
+from .binary import (
+    FrontmatterError,
+    MissingFrontmatterError,
+    UnclosedFrontmatterError,
+    UnsupportedEncodingError,
+    update_frontmatter,
+)
 from .default_handlers import JSONHandler, TOMLHandler, YAMLHandler
 from .util import can_open, is_readable, is_writable, u
 
@@ -17,7 +24,18 @@ if TYPE_CHECKING:
     from .default_handlers import BaseHandler
 
 
-__all__ = ["parse", "load", "loads", "dump", "dumps"]
+__all__ = [
+    "parse",
+    "load",
+    "loads",
+    "dump",
+    "dumps",
+    "update_frontmatter",
+    "FrontmatterError",
+    "MissingFrontmatterError",
+    "UnclosedFrontmatterError",
+    "UnsupportedEncodingError",
+]
 
 
 # global handlers

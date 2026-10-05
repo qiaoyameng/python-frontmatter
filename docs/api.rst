@@ -24,6 +24,16 @@ Writing
 
 .. autofunction:: frontmatter.dumps
 
+.. autofunction:: frontmatter.update_frontmatter
+
+.. autoexception:: frontmatter.FrontmatterError
+
+.. autoexception:: frontmatter.MissingFrontmatterError
+
+.. autoexception:: frontmatter.UnclosedFrontmatterError
+
+.. autoexception:: frontmatter.UnsupportedEncodingError
+
 
 Post objects
 ------------
