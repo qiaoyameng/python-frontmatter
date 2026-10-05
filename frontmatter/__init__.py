@@ -11,13 +11,25 @@ from typing import TYPE_CHECKING, Iterable, TextIO
 
 from .default_handlers import JSONHandler, TOMLHandler, YAMLHandler
 from .util import can_open, is_readable, is_writable, u
+from .batch import CheckReport, Identity, IdentityIndex, Issue, check_posts
 
 
 if TYPE_CHECKING:
     from .default_handlers import BaseHandler
 
 
-__all__ = ["parse", "load", "loads", "dump", "dumps"]
+__all__ = [
+    "parse",
+    "load",
+    "loads",
+    "dump",
+    "dumps",
+    "check_posts",
+    "CheckReport",
+    "Identity",
+    "IdentityIndex",
+    "Issue",
+]
 
 
 # global handlers
