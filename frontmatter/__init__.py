@@ -10,6 +10,22 @@ from os import PathLike
 from typing import TYPE_CHECKING, Iterable, TextIO
 
 from .default_handlers import JSONHandler, TOMLHandler, YAMLHandler
+from .convert import (
+    JSON,
+    TOML,
+    YAML,
+    ConversionError,
+    ConvertedMetadata,
+    ConvertedText,
+    ConversionReport,
+    IncompatibleField,
+    IncompatibilityReason,
+    TargetFormat,
+    check_metadata,
+    convert_metadata,
+    convert_post,
+    convert_text,
+)
 from .util import can_open, is_readable, is_writable, u
 
 
@@ -17,7 +33,27 @@ if TYPE_CHECKING:
     from .default_handlers import BaseHandler
 
 
-__all__ = ["parse", "load", "loads", "dump", "dumps"]
+__all__ = [
+    "parse",
+    "load",
+    "loads",
+    "dump",
+    "dumps",
+    "JSON",
+    "TOML",
+    "YAML",
+    "TargetFormat",
+    "IncompatibilityReason",
+    "IncompatibleField",
+    "ConversionReport",
+    "ConversionError",
+    "ConvertedMetadata",
+    "ConvertedText",
+    "check_metadata",
+    "convert_metadata",
+    "convert_post",
+    "convert_text",
+]
 
 
 # global handlers

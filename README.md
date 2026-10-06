@@ -133,3 +133,41 @@ Well, hello there, world.
 ```
 
 For more examples, see files in the `tests/` directory. Each sample file has a corresponding `.result.json` file showing the expected parsed output. See also the `examples/` directory, which covers more ways to customize input and output.
+
+## Converting front matter
+
+Switching a YAML post to JSON or TOML is not just a handler swap: JSON has no date type, TOML has no `null`, both require string keys, and TOML arrays must be homogeneous. The serializers hide some of this (for example `toml.dumps` drops null-valued keys and stringifies unknown objects). `frontmatter.convert_text` checks that the target format can represent every field *before* writing, and reports each field that cannot:
+
+```python
+>>> import frontmatter
+>>> text = '''---
+... title: Hello
+... published: 2026-10-05T13:22:00+08:00
+... reviewer: null
+... ---
+...
+... Body is left untouched.
+... '''
+>>> try:
+...     frontmatter.convert_text(text, frontmatter.TOML)
+... except frontmatter.ConversionError as error:
+...     print(error.report.incompatible_paths())
+[('reviewer',)]
+
+```
+
+Provide an explicit converter for a path to approve a specific transformation. Its result is checked again against the target value domain, and the converted document is reloaded to confirm the values survive the round trip:
+
+```python
+>>> toml_text = frontmatter.convert_text(
+...     text,
+...     frontmatter.TOML,
+...     converters={"reviewer": lambda path, value: "unassigned"},
+... ).text
+>>> post = frontmatter.loads(toml_text, handler=frontmatter.default_handlers.TOMLHandler())
+>>> post["reviewer"]
+'unassigned'
+
+```
+
+Only the header is converted; the body is preserved byte-for-byte. Use `strict=False` to get a parseable best-effort document plus the report, or `frontmatter.check_metadata` / `frontmatter.convert_metadata` to work with metadata dictionaries directly.
